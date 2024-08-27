@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a906ba91ab93c254ebac1e03649f3e76, type: 3}
+  m_Name: Jack
+  m_EditorClassIdentifier: 
+  characterName: Jack
+  characterSprite:
+  - {fileID: 21300000, guid: 4dd4a8b3a0f1c14498e5ac959f9fa0c9, type: 3}
+  - {fileID: 21300000, guid: 038d0adbc4703f646802dc2e7894206d, type: 3}
+  - {fileID: 21300000, guid: 35efb8573332d3b4c956d375b5f160f5, type: 3}
+  - {fileID: 21300000, guid: 02e4d493e36d4604cbea38c7aa84751a, type: 3}
+  - {fileID: 21300000, guid: a54669e64a3e9b548a6d32ad77c9f2b0, type: 3}
+  - {fileID: 21300000, guid: 8dad83585eeaffd44a497e310bb8c483, type: 3}
+  faceRightByDefault: 0

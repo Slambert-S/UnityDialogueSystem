@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb611923b18c7274f9f799753868a4c9, type: 3}
+  m_Name: testingDialogue 2
+  m_EditorClassIdentifier: 
+  mainActor: 2
+  line: This is the third dialogue line.
+  charaterlist:
+  - actor: {fileID: 11400000, guid: a5cc9003ff8614a43a757ee14340e4ae, type: 2}
+    selectedSprite: 3
+    actorPosition: 1
+    actorMouvement:
+      walkOutLeft: 0
+      walkOutRight: 0
+      moveToo: {x: 300, y: 0, z: 0}
+      moveBackward: 1
+  - actor: {fileID: 11400000, guid: 0ec6c12a961464144a504e3f245fa1ee, type: 2}
+    selectedSprite: 1
+    actorPosition: 2
+    actorMouvement:
+      walkOutLeft: 0
+      walkOutRight: 1
+      moveToo: {x: 0, y: 0, z: 0}
+      moveBackward: 1
+  - actor: {fileID: 11400000, guid: 199c4af3e5b50f148a1be804de8e237b, type: 2}
+    selectedSprite: 5
+    actorPosition: 0
+    actorMouvement:
+      walkOutLeft: 1
+      walkOutRight: 0
+      moveToo: {x: 0, y: 0, z: 0}
+      moveBackward: 0

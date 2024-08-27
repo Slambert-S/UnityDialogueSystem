@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb611923b18c7274f9f799753868a4c9, type: 3}
+  m_Name: testingDialogue 1
+  m_EditorClassIdentifier: 
+  mainActor: 0
+  line: This is the second dialogue line
+  charaterlist:
+  - actor: {fileID: 11400000, guid: a5cc9003ff8614a43a757ee14340e4ae, type: 2}
+    selectedSprite: 3
+    actorPosition: 1
+  - actor: {fileID: 11400000, guid: 0ec6c12a961464144a504e3f245fa1ee, type: 2}
+    selectedSprite: 1
+    actorPosition: 2
