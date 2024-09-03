@@ -18,6 +18,16 @@ MonoBehaviour:
   - actor: {fileID: 11400000, guid: a5cc9003ff8614a43a757ee14340e4ae, type: 2}
     selectedSprite: 3
     actorPosition: 1
+    actorMouvement:
+      walkOutLeft: 0
+      walkOutRight: 0
+      moveToo: {x: 0, y: 0, z: 0}
+      moveBackward: 0
   - actor: {fileID: 11400000, guid: 0ec6c12a961464144a504e3f245fa1ee, type: 2}
     selectedSprite: 1
-    actorPosition: 2
+    actorPosition: 0
+    actorMouvement:
+      walkOutLeft: 0
+      walkOutRight: 0
+      moveToo: {x: 0, y: 0, z: 0}
+      moveBackward: 0

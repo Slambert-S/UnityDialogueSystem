@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.Rendering;
 
 public class newDialogueManager : MonoBehaviour
 {
@@ -20,21 +21,43 @@ public class newDialogueManager : MonoBehaviour
     public float typingSpeed = 0.2f;
 
     private dialogueObject currentLine;
+
+    [SerializeField]
+    private List<Vector3> originalActorsPosition = new List<Vector3>();
+
     // Start is called before the first frame update
     void Start()
     {
         if (Instance == null)
         {
             Instance = this;
+            //SaveActorPosition();
+
+
         }
+       
     }
 
     public void StartDialogue(objectDialogue dialogue)
     {
-       
+       if(isDialogueActive == true)
+       {
+            return;
+       }
+
+
         isDialogueActive = true;
         // animator.Play("show");
         lines.Clear();
+        if(originalActorsPosition.Count == 0)
+        {
+            SaveActorPosition();
+
+        }
+        else
+        {
+            ResetActorPosition();
+        }
 
         foreach (dialogueObject line in dialogue.dialogueLine)
         {
@@ -42,13 +65,21 @@ public class newDialogueManager : MonoBehaviour
         }
         uiAnimator.SetTrigger("trShow");
         
-        
+
 
         DisplayNextDialogueLine();
     }
 
     public void DisplayNextDialogueLine()
     {
+
+        /// Make sure the actor reached their last position
+        /// 
+        if(currentLine != null)
+        {
+            this.GetComponent<mngMovingActor>().PlaceActorToDesiredPosition(currentLine, characterIconPosition);
+        }
+
         if (lines.Count == 0)
         {
             EndDialogue();
@@ -106,6 +137,7 @@ public class newDialogueManager : MonoBehaviour
         uiAnimator.ResetTrigger("trShow");
         
         uiAnimator.SetTrigger("trHide");
+        
     }
 
 
@@ -114,6 +146,8 @@ public class newDialogueManager : MonoBehaviour
         //wait for the UI to be out of sight before hiding all actor just in case
         yield return new WaitForSeconds(0.5f);
         clearAllActor();
+        ResetActorPosition();
+
 
     }
     private void clearAllActor()
@@ -121,6 +155,7 @@ public class newDialogueManager : MonoBehaviour
         foreach (Image actor in characterIconPosition)
         {
             actor.sprite = null;
+            
             actor.color = new Color(0, 0, 0, 0);
 
         }
@@ -192,10 +227,36 @@ public class newDialogueManager : MonoBehaviour
             Debug.Log("MainActor is null");
             characterIconPosition[mainActorIndex].color = activeActorcolor;
             characterIconPosition[mainActorIndex].transform.SetAsLastSibling();
-            characterName.text = currentLine.charaterlist[mainActorIndex].actor.characterName;
+            foreach (CaracterList actor in currentLine.charaterlist)
+            { 
+                if(actor.actorPosition == mainActorIndex)
+                {
+                    characterName.text = actor.actor.name;
+                    break;
+                }
+            }
         }
     }
 
+    private void ResetActorPosition()
+    {
+        int index = 0;
+        foreach (Image actor in characterIconPosition)
+        {
+            actor.transform.position = originalActorsPosition[index];
+            actor.transform.localScale = Vector3.one;
+            index++;
+            
+
+        }
+    }
+     private void SaveActorPosition()
+    {
+        foreach (Image actor in characterIconPosition)
+        {
+            originalActorsPosition.Add(actor.transform.position);
+        }
+    }
     /*
     void HideAllActorSprite()
     {

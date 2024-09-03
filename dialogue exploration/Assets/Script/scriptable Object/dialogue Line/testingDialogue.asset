@@ -18,9 +18,24 @@ MonoBehaviour:
   - actor: {fileID: 11400000, guid: a5cc9003ff8614a43a757ee14340e4ae, type: 2}
     selectedSprite: 2
     actorPosition: 1
+    actorMouvement:
+      walkOutLeft: 0
+      walkOutRight: 0
+      moveToo: {x: 0, y: 0, z: 0}
+      moveBackward: 0
   - actor: {fileID: 11400000, guid: 0ec6c12a961464144a504e3f245fa1ee, type: 2}
     selectedSprite: 10
     actorPosition: 2
+    actorMouvement:
+      walkOutLeft: 0
+      walkOutRight: 0
+      moveToo: {x: 0, y: 0, z: 0}
+      moveBackward: 0
   - actor: {fileID: 11400000, guid: 199c4af3e5b50f148a1be804de8e237b, type: 2}
     selectedSprite: 6
     actorPosition: 0
+    actorMouvement:
+      walkOutLeft: 0
+      walkOutRight: 0
+      moveToo: {x: 0, y: 0, z: 0}
+      moveBackward: 0

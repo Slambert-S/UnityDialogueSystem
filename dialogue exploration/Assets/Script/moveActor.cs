@@ -58,4 +58,13 @@ public class moveActor : MonoBehaviour
         isMoving = true;
         Debug.Log("Debug : in initialise  mouvement");
     }
+
+    public void ReachFinalPosition()
+    {
+        if (isMoving)
+        {
+            this.transform.position = targetPosition;
+            isMoving = false;
+        }
+    }
 }

@@ -3963,6 +3963,7 @@ MonoBehaviour:
   uiAnimator: {fileID: 189671527}
   isDialogueActive: 0
   typingSpeed: 0.02
+  originalActorsPosition: []
 --- !u!114 &575212645
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,10 +13,12 @@ public class mngMovingActor : MonoBehaviour
     [SerializeField]
     private Vector3 _direction;
     private int facingDirection;
+   
+
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -108,6 +110,16 @@ public class mngMovingActor : MonoBehaviour
 
 
             
+        }
+    }
+
+    public void PlaceActorToDesiredPosition(dialogueObject currentLine, List<Image> characterPosition)
+    {
+        foreach (CaracterList actor in currentLine.charaterlist)
+        {
+            Image actorObjectRef = characterPosition[actor.actorPosition];
+            actorObjectRef.GetComponent<moveActor>().ReachFinalPosition();
+
         }
     }
 
