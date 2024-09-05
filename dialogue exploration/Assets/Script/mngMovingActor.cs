@@ -35,7 +35,7 @@ public class mngMovingActor : MonoBehaviour
     /// <param name="characterPosition">List of all actor </param>
     public void HandleActorMouvement(dialogueObject currentLine, List<Image> characterPosition)
     {
-        foreach (CaracterList actor in currentLine.charaterlist)
+        foreach (ActorList actor in currentLine.actorList)
         {
             Image actorObjectRef = characterPosition[actor.actorPosition];
             bool needToMove = false;
@@ -69,7 +69,6 @@ public class mngMovingActor : MonoBehaviour
                     facingDirection = -1;
                 }
 
-               // needToMove = true;
             }
             else
             {
@@ -82,21 +81,14 @@ public class mngMovingActor : MonoBehaviour
                     facingDirection = 1;
                 }
 
-                //needToMove = true;
             }
-            //If the code is used here all the right facing character will get there facing direction swaped all the time
-            /*
-            if (actor.actor.faceRightByDefault)
-            {
-                facingDirection = facingDirection * -1;
-                Debug.LogWarning("In swaping right looking actor");
-            }
-            */
+            
+           
 
             if (needToMove)
             {
                 //if used here all right facing character will swap there facing direction when moving.
-                if (actor.actor.faceRightByDefault)
+                if (actor.character.faceRightByDefault)
                 {
                     facingDirection = facingDirection * -1;
                     Debug.LogWarning("In swaping right looking actor");
@@ -115,7 +107,7 @@ public class mngMovingActor : MonoBehaviour
 
     public void PlaceActorToDesiredPosition(dialogueObject currentLine, List<Image> characterPosition)
     {
-        foreach (CaracterList actor in currentLine.charaterlist)
+        foreach (ActorList actor in currentLine.actorList)
         {
             Image actorObjectRef = characterPosition[actor.actorPosition];
             actorObjectRef.GetComponent<moveActor>().ReachFinalPosition();

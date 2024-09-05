@@ -12,9 +12,9 @@ public class ActorMouvement
     public bool moveBackward;
 }
 [System.Serializable]
-public class CaracterList
+public class ActorList
 {
-    public CharacterDataScriptableObject actor;
+    public CharacterDataScriptableObject character;
     public int selectedSprite;
     public int actorPosition;
     public ActorMouvement actorMouvement;
@@ -23,11 +23,12 @@ public class CaracterList
 public class dialogueObject : ScriptableObject
 {
     // Start is called before the first frame update
-    public int mainActor;
+    [Tooltip("The actor with this value in (ActorPosition) will be selected as the Main actor.")]
+    public int mainActorPosition;
    // public int selectedSprite;
     [TextArea(3, 10)]
     public string line;
-    public List <CaracterList> charaterlist = new List<CaracterList>();
+    public List <ActorList> actorList = new List<ActorList>();
 
    
 

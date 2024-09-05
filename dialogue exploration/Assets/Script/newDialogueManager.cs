@@ -9,7 +9,7 @@ using UnityEngine.Rendering;
 public class newDialogueManager : MonoBehaviour
 {
     public static newDialogueManager Instance;
-    public List<Image> characterIconPosition = new List<Image>();
+    public List<Image> actorIconPosition = new List<Image>();
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
     public Animator uiAnimator;
@@ -77,7 +77,7 @@ public class newDialogueManager : MonoBehaviour
         /// 
         if(currentLine != null)
         {
-            this.GetComponent<mngMovingActor>().PlaceActorToDesiredPosition(currentLine, characterIconPosition);
+            this.GetComponent<mngMovingActor>().PlaceActorToDesiredPosition(currentLine, actorIconPosition);
         }
 
         if (lines.Count == 0)
@@ -87,17 +87,6 @@ public class newDialogueManager : MonoBehaviour
         }
 
         currentLine = lines.Dequeue();
-
-        //int spriteIndex = 0;
-
-        // dialogueObject ->character list
-        //                ->Line
-        //
-
-        // characterList[x] -> actor
-        //                  -> sprite
-        //                  -> position
-        //Check if the selected character index is in the scope of the sprite list.
 
 
         clearAllActor();
@@ -109,7 +98,7 @@ public class newDialogueManager : MonoBehaviour
         SetUpMainActor();
 
         //Move all sprite ir required.
-        this.GetComponent<mngMovingActor>().HandleActorMouvement(currentLine, characterIconPosition);
+        this.GetComponent<mngMovingActor>().HandleActorMouvement(currentLine, actorIconPosition);
         
         StopAllCoroutines();
         StartCoroutine(TypeSentence(currentLine));
@@ -152,7 +141,7 @@ public class newDialogueManager : MonoBehaviour
     }
     private void clearAllActor()
     {
-        foreach (Image actor in characterIconPosition)
+        foreach (Image actor in actorIconPosition)
         {
             actor.sprite = null;
             
@@ -165,17 +154,17 @@ public class newDialogueManager : MonoBehaviour
     private void SetUpAllActorSprite()
     {
         //Set all used caracter sprite in their proper position
-        foreach (CaracterList actor in currentLine.charaterlist)
+        foreach (ActorList actor in currentLine.actorList)
         {
             
             //Check if desired actor position is valid
-            if (actor.actorPosition < 0 || actor.actorPosition >= characterIconPosition.Count)
+            if (actor.actorPosition < 0 || actor.actorPosition >= actorIconPosition.Count)
             {
                 Debug.Log("the targeted actor position is out of range");
                 continue;
             }
 
-            if (characterIconPosition[actor.actorPosition] == null)
+            if (actorIconPosition[actor.actorPosition] == null)
             {
                 Debug.Log("the targeted actor position does not exist");
                 continue;
@@ -184,19 +173,19 @@ public class newDialogueManager : MonoBehaviour
 
 
             //Place the proper sprite
-            if (actor.selectedSprite < actor.actor.characterSprite.Count && actor.selectedSprite >= 0)
+            if (actor.selectedSprite < actor.character.characterSprite.Count && actor.selectedSprite >= 0)
             {
 
-                characterIconPosition[actor.actorPosition].sprite = actor.actor.characterSprite[actor.selectedSprite];
+                actorIconPosition[actor.actorPosition].sprite = actor.character.characterSprite[actor.selectedSprite];
             }
             else
             {
                 //Using deffalut sprite to prevent problem
-                characterIconPosition[actor.actorPosition].sprite = actor.actor.characterSprite[0];
-                Debug.Log($"Sprite #({actor.selectedSprite}) of actor ( {actor.actor.name} ) was not found , using default sprite");
+                actorIconPosition[actor.actorPosition].sprite = actor.character.characterSprite[0];
+                Debug.Log($"Sprite #({actor.selectedSprite}) of actor ( {actor.character.name} ) was not found , using default sprite");
 
             }
-            characterIconPosition[actor.actorPosition].color = passiveActorcolor;
+            actorIconPosition[actor.actorPosition].color = passiveActorcolor;
 
         }
     }
@@ -207,31 +196,48 @@ public class newDialogueManager : MonoBehaviour
         //check if main actor value is valid
         //Set it as the name to use
 
-        var mainActorIndex = currentLine.mainActor;
-        if (mainActorIndex < 0 || mainActorIndex >= currentLine.charaterlist.Count)
+        var mainActorIndex = currentLine.mainActorPosition;
+
+        // TO DO : BUG fix : currentl checking  if the mainActorIndex refer to an index and not the position of an actor.
+
+        //Would need to loop trought all actor to find if one of them is designed as the main actor
+        bool mainActorFound = false;
+        foreach (ActorList actor in currentLine.actorList)
+        {
+            if (actor.actorPosition == mainActorIndex)
+            {
+               mainActorFound = true;
+                break;
+            }
+        }
+        if (mainActorIndex < 0 || mainActorFound == false)
         {
             Debug.Log($"Main actor value {mainActorIndex} is not valid");
             characterName.text = "Invalid";
             return;
         }
-        if (currentLine.charaterlist[mainActorIndex] == null)
+
+
+        //May not be required now 
+        /*
+        if (currentLine.actorList[mainActorIndex] == null)
         {
             Debug.Log("Selected actor is null");
             return;
-        }
+        }*/
 
 
         //Set up visual for the current main character
-        if (characterIconPosition[mainActorIndex].sprite != null)
+        if (actorIconPosition[mainActorIndex].sprite != null)
         {
-            Debug.Log("MainActor is null");
-            characterIconPosition[mainActorIndex].color = activeActorcolor;
-            characterIconPosition[mainActorIndex].transform.SetAsLastSibling();
-            foreach (CaracterList actor in currentLine.charaterlist)
+            
+            actorIconPosition[mainActorIndex].color = activeActorcolor;
+            actorIconPosition[mainActorIndex].transform.SetAsLastSibling();
+            foreach (ActorList actor in currentLine.actorList)
             { 
                 if(actor.actorPosition == mainActorIndex)
                 {
-                    characterName.text = actor.actor.name;
+                    characterName.text = actor.character.name;
                     break;
                 }
             }
@@ -241,7 +247,7 @@ public class newDialogueManager : MonoBehaviour
     private void ResetActorPosition()
     {
         int index = 0;
-        foreach (Image actor in characterIconPosition)
+        foreach (Image actor in actorIconPosition)
         {
             actor.transform.position = originalActorsPosition[index];
             actor.transform.localScale = Vector3.one;
@@ -252,7 +258,7 @@ public class newDialogueManager : MonoBehaviour
     }
      private void SaveActorPosition()
     {
-        foreach (Image actor in characterIconPosition)
+        foreach (Image actor in actorIconPosition)
         {
             originalActorsPosition.Add(actor.transform.position);
         }
@@ -260,7 +266,7 @@ public class newDialogueManager : MonoBehaviour
     /*
     void HideAllActorSprite()
     {
-        foreach(Image actor in characterIconPosition)
+        foreach(Image actor in actorIconPosition)
         {
             actor.color = new Color(0, 0, 0, 0);
         }
