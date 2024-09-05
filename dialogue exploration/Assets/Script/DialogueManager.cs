@@ -6,9 +6,9 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.Rendering;
 
-public class newDialogueManager : MonoBehaviour
+public class DialogueManager : MonoBehaviour
 {
-    public static newDialogueManager Instance;
+    public static DialogueManager Instance;
     public List<Image> actorIconPosition = new List<Image>();
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
@@ -19,7 +19,8 @@ public class newDialogueManager : MonoBehaviour
     private Color activeActorcolor = new Color(1f, 1f, 1f, 1f);
     public bool isDialogueActive = false;
     public float typingSpeed = 0.2f;
-
+    
+    [SerializeField]
     private dialogueObject currentLine;
 
     [SerializeField]
@@ -78,6 +79,7 @@ public class newDialogueManager : MonoBehaviour
         if(currentLine != null)
         {
             this.GetComponent<mngMovingActor>().PlaceActorToDesiredPosition(currentLine, actorIconPosition);
+           // Debug.LogWarning(" Actor have reset position")
         }
 
         if (lines.Count == 0)
@@ -119,7 +121,7 @@ public class newDialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
-        isDialogueActive = false;
+       
 
         StartCoroutine(HideAllActorSprite());
         
@@ -136,6 +138,7 @@ public class newDialogueManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         clearAllActor();
         ResetActorPosition();
+        isDialogueActive = false;
 
 
     }

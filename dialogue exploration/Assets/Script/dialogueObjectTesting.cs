@@ -15,7 +15,7 @@ public class dialogueObjectTesting : MonoBehaviour
 
     public void TriggerDialogue()
     {
-        newDialogueManager.Instance.StartDialogue(objectDialogue);
+        DialogueManager.Instance.StartDialogue(objectDialogue);
     }
 
 }

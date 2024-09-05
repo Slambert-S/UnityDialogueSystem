@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb611923b18c7274f9f799753868a4c9, type: 3}
+  m_Name: SC_1_L11
+  m_EditorClassIdentifier: 
+  mainActorPosition: 2
+  line: Actualy I was looking for you. I have a message from your boss. He whants
+    to tell you that you may have a nice surprise today If you are able to finsh
+    your task early enuph to meet him in his office after.
+  actorList:
+  - character: {fileID: 11400000, guid: 199c4af3e5b50f148a1be804de8e237b, type: 2}
+    selectedSprite: 2
+    actorPosition: 0
+    actorMouvement:
+      walkOutLeft: 0
+      walkOutRight: 0
+      moveToo: {x: 0, y: 0, z: 0}
+      moveBackward: 0
+  - character: {fileID: 11400000, guid: a5cc9003ff8614a43a757ee14340e4ae, type: 2}
+    selectedSprite: 1
+    actorPosition: 2
+    actorMouvement:
+      walkOutLeft: 0
+      walkOutRight: 0
+      moveToo: {x: 0, y: 0, z: 0}
+      moveBackward: 0
