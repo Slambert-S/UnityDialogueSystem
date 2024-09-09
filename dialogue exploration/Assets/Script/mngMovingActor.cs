@@ -117,21 +117,23 @@ public class mngMovingActor : MonoBehaviour
 
     private void WalkOutLeft(Transform actorPosition)
     {
-        _targetPosition = leftOffScreenPosition.transform.position;
-        _direction = _targetPosition - actorPosition.position;
+        _targetPosition = leftOffScreenPosition.transform.localPosition;
+        // _targetPosition = actorPosition.InverseTransformPoint(leftOffScreenPosition.transform.position);
+        Debug.Log("(patate) Target local position : "+_targetPosition + "Target world position: "+ leftOffScreenPosition.transform.position + " actor localPosition : " + actorPosition.position);
+        _direction = _targetPosition - actorPosition.localPosition;
         _direction = _direction.normalized;
     }
     private void WalkOutRight(Transform actorPosition)
     {
-        _targetPosition = rightOffscreenPosition.transform.position;
-        _direction = _targetPosition - actorPosition.position;
+        _targetPosition = rightOffscreenPosition.transform.localPosition;
+        _direction = _targetPosition - actorPosition.localPosition;
         _direction = _direction.normalized;
     }
 
     private void WalkToSpecificPosition(Transform actorPosition, Vector3 positionOfset)
     {
-        _targetPosition = actorPosition.position + positionOfset;
-        _direction = _targetPosition - actorPosition.position;
+        _targetPosition = actorPosition.localPosition + positionOfset;
+        _direction = _targetPosition - actorPosition.localPosition;
         _direction = _direction.normalized;
 
     }

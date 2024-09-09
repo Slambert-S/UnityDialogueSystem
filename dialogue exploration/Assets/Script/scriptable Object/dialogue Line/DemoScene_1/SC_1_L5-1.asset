@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb611923b18c7274f9f799753868a4c9, type: 3}
-  m_Name: SC_1_L11
+  m_Name: SC_1_L5-1
   m_EditorClassIdentifier: 
-  mainActorPosition: 2
-  line: Actually, I was looking for you. I have a message from your boss. He wants
-    to tell you that you may have a nice surprise today if you can finish your task
-    early enough to meet him in his office afterward.
+  mainActorPosition: 0
+  naration: 1
+  line: Jeff if looking at the building in front of him , trying to make out what
+    he can see In the oposit building.
   actorList:
   - character: {fileID: 11400000, guid: 199c4af3e5b50f148a1be804de8e237b, type: 2}
     selectedSprite: 2
@@ -25,11 +25,4 @@ MonoBehaviour:
       walkOutRight: 0
       moveToo: {x: 0, y: 0, z: 0}
       moveBackward: 0
-  - character: {fileID: 11400000, guid: a5cc9003ff8614a43a757ee14340e4ae, type: 2}
-    selectedSprite: 1
-    actorPosition: 2
-    actorMouvement:
-      walkOutLeft: 0
-      walkOutRight: 0
-      moveToo: {x: 0, y: 0, z: 0}
-      moveBackward: 0
+  hideAllActor: 1

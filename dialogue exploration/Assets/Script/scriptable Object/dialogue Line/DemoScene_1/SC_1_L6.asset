@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SC_1_L6
   m_EditorClassIdentifier: 
   mainActorPosition: 2
-  line: Floating TV comming trought !!!
+  line: Floating TV coming through!!!
   actorList:
   - character: {fileID: 11400000, guid: 199c4af3e5b50f148a1be804de8e237b, type: 2}
     selectedSprite: 2

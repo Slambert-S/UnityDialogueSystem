@@ -31,3 +31,4 @@ MonoBehaviour:
       walkOutRight: 0
       moveToo: {x: 0, y: 0, z: 0}
       moveBackward: 0
+  hideAllActor: 0

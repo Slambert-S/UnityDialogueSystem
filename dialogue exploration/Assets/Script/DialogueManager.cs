@@ -26,6 +26,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     private List<Vector3> originalActorsPosition = new List<Vector3>();
 
+    public naratorControl naratorController;
+    [Header("General control")]
+    public bool highlightMainActor;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,12 +96,29 @@ public class DialogueManager : MonoBehaviour
 
 
         clearAllActor();
-         
-        // Set up :  set sprite and position  For : all actor
-        SetUpAllActorSprite();
+        bool hideALLActor = currentLine.hideAllActor;
+        
+        if(naratorController != null)
+        {
+            if (currentLine.naration == true)
+            {
+                naratorController.deActivateNarator();
+            }
+            else
+            {
+                naratorController.activateNarator();
+            }
+        }
+
+        if(hideALLActor == false)
+        {
+            // Set up :  set sprite and position  For : all actor
+            SetUpAllActorSprite();
+
+        }
 
         //Set up : Name , Color , height position For : Main actor
-        SetUpMainActor();
+        SetUpMainActor(hideALLActor);
 
         //Move all sprite ir required.
         this.GetComponent<mngMovingActor>().HandleActorMouvement(currentLine, actorIconPosition);
@@ -188,12 +209,20 @@ public class DialogueManager : MonoBehaviour
                 Debug.Log($"Sprite #({actor.selectedSprite}) of actor ( {actor.character.name} ) was not found , using default sprite");
 
             }
-            actorIconPosition[actor.actorPosition].color = passiveActorcolor;
+
+            if(highlightMainActor == false)
+            {
+                actorIconPosition[actor.actorPosition].color = activeActorcolor;
+            }
+            else
+            {
+                actorIconPosition[actor.actorPosition].color = passiveActorcolor;
+            }
 
         }
     }
 
-    private void SetUpMainActor()
+    private void SetUpMainActor(bool hideActor)
     {
         //place name of main character
         //check if main actor value is valid
@@ -234,7 +263,10 @@ public class DialogueManager : MonoBehaviour
         if (actorIconPosition[mainActorIndex].sprite != null)
         {
             
-            actorIconPosition[mainActorIndex].color = activeActorcolor;
+            if(hideActor == false)
+            {
+                actorIconPosition[mainActorIndex].color = activeActorcolor;
+            }
             actorIconPosition[mainActorIndex].transform.SetAsLastSibling();
             foreach (ActorList actor in currentLine.actorList)
             { 

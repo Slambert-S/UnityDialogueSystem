@@ -25,11 +25,14 @@ public class dialogueObject : ScriptableObject
     // Start is called before the first frame update
     [Tooltip("The actor with this value in (ActorPosition) will be selected as the Main actor.")]
     public int mainActorPosition;
+    public bool naration;
    // public int selectedSprite;
     [TextArea(3, 10)]
     public string line;
     public List <ActorList> actorList = new List<ActorList>();
+    [Header("General control")]
+    public bool hideAllActor;
 
-   
+
 
 }

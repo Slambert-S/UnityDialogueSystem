@@ -20,11 +20,15 @@ public class moveActor : MonoBehaviour
     {
         if (isMoving)
         {
- 
-            float distence = Vector3.Distance(this.transform.position, targetPosition);
-            if (distence >= 2)
+            Debug.Log("Actor : " + this.transform.localPosition + " Target : " + targetPosition);
+            float distence = Vector3.Distance(this.transform.localPosition, targetPosition);
+            if (distence >= 20)
             {
-                transform.Translate(direction * speed * Time.deltaTime);
+                //Using Space.Self to scale the mouvement to actore size.
+                //transform.Translate(direction * speed * Time.deltaTime, Space.Self);
+                // Move our position a step closer to the target.
+                var step = speed * Time.deltaTime; // calculate distance to move
+                transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPosition, step);
             }
             else 
             {
@@ -40,7 +44,8 @@ public class moveActor : MonoBehaviour
     
     public void SetTargetPosition(Vector3 newTargetPosition)
     {
-        targetPosition = newTargetPosition;
+        //targetPosition = transform.InverseTransformPoint(newTargetPosition);
+        targetPosition =  newTargetPosition;
     }
     public void SetTargetDirection(Vector3 newTargetDirection)
     {
@@ -63,7 +68,7 @@ public class moveActor : MonoBehaviour
     {
         if (isMoving)
         {
-            this.transform.position = targetPosition;
+            this.transform.localPosition = targetPosition;
             isMoving = false;
         }
     }
