@@ -134,6 +134,24 @@ public class DialogueManager : MonoBehaviour
         dialogueArea.text = "";
         foreach (char letter in dialogueLine.line.ToCharArray())
         {
+            /*
+             * open = 0
+             * close  = 0
+             * active tag = 0
+             *  leftstring;
+             * middle string;
+             * right string
+             * openTag string
+             * 
+             * if char = \ skip to next char
+             * if char = <
+             *  then open ++
+             *  active tag ++
+             *  
+             *  if( open != 0)
+             *  add char to open
+             * 
+             * */
             dialogueArea.text += letter;
             yield return new WaitForSeconds(typingSpeed);
 
