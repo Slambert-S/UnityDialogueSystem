@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainActorPosition: 2
   naration: 0
-  line: \<BONK\>
+  line: '[ BONK ]'
   actorList:
   - character: {fileID: 11400000, guid: 199c4af3e5b50f148a1be804de8e237b, type: 2}
     selectedSprite: 2

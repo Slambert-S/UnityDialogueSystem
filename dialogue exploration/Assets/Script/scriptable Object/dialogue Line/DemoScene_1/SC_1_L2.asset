@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainActorPosition: 0
   naration: 0
-  line: It looks like it will be a snowy day. It's so <color=red>cold that I feel
-    like</color> the only one outside right now. 4 3 2 1
+  line: It looks like it will be  aasda a snowy day. It's so <color=red>cold that
+    I feel like</color> the only one outside right now. 4 3 2 1
   actorList:
   - character: {fileID: 11400000, guid: 199c4af3e5b50f148a1be804de8e237b, type: 2}
     selectedSprite: 4
