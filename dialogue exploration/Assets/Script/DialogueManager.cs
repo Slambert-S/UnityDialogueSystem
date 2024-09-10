@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.Rendering;
+using RichTextSubstringHelper;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class DialogueManager : MonoBehaviour
     private Color activeActorcolor = new Color(1f, 1f, 1f, 1f);
     public bool isDialogueActive = false;
     public float typingSpeed = 0.2f;
+    private bool isTyping = false;
     
     [SerializeField]
     private dialogueObject currentLine;
@@ -78,6 +80,11 @@ public class DialogueManager : MonoBehaviour
     public void DisplayNextDialogueLine()
     {
 
+        if(isTyping == true)
+        {
+            showFullDialogueText(currentLine);
+            return;
+        }
         /// Make sure the actor reached their last position
         /// 
         if(currentLine != null)
@@ -131,10 +138,25 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator TypeSentence(dialogueObject dialogueLine)
     {
+        isTyping = true;
         dialogueArea.text = "";
+        //Debug.Log(StringExt.RichTextSubString(dialogueLine.line, 5));
+        
+
+        for(int i = 0; i <= StringExt.RichTextLength(dialogueLine.line); i++)
+        {
+            dialogueArea.text = StringExt.RichTextSubString(dialogueLine.line, i);
+            //dialogueArea.text += letter;
+            yield return new WaitForSeconds(typingSpeed);
+            //i++;
+            Debug.Log("Potato");
+        }
+
+        isTyping = false;
+        /*
         foreach (char letter in dialogueLine.line.ToCharArray())
         {
-            /*
+            
              * open = 0
              * close  = 0
              * active tag = 0
@@ -151,11 +173,23 @@ public class DialogueManager : MonoBehaviour
              *  if( open != 0)
              *  add char to open
              * 
-             * */
-            dialogueArea.text += letter;
+             * 
+            dialogueArea.text = StringExt.RichTextSubString(dialogueLine.line, i);
+            //dialogueArea.text += letter;
             yield return new WaitForSeconds(typingSpeed);
+            i++;
+
+            
 
         }
+        */
+    }
+
+    private void showFullDialogueText(dialogueObject dialogueLine)
+    {
+        StopAllCoroutines();
+        dialogueArea.text = dialogueLine.line;
+        isTyping = false;
     }
 
     void EndDialogue()
