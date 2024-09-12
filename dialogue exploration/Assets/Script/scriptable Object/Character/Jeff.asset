@@ -24,3 +24,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2d33144b52173c24f99364b97143ad8c, type: 3}
   - {fileID: 21300000, guid: 97b34a9d99de6a545a90775367ab97f0, type: 3}
   faceRightByDefault: 1
+  audioClipList:
+  - {fileID: 8300000, guid: 11520dcb6649c994390f3c02bc5348a9, type: 3}
+  - {fileID: 8300000, guid: 2957e70d529877f4a8d7f209755706de, type: 3}
+  - {fileID: 8300000, guid: cd4b3e3cc38ec594dae9756d75b2a457, type: 3}

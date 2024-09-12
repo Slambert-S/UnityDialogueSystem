@@ -18,6 +18,7 @@ public class ActorList
     public int selectedSprite;
     public int actorPosition;
     public ActorMouvement actorMouvement;
+    public int actorSoundEffect = -1;
 }
 [CreateAssetMenu(fileName = "Dialogue", menuName = "ScriptableObjects/DialogueScriptableObject", order = 1)]
 public class dialogueObject : ScriptableObject
@@ -32,6 +33,10 @@ public class dialogueObject : ScriptableObject
     public List <ActorList> actorList = new List<ActorList>();
     [Header("General control")]
     public bool hideAllActor;
+
+    public bool playActorSoundEffect = false;
+    public AudioClip dialogueSoundEffect = null;
+    public AudioClip backgroundMusic = null;
 
 
 

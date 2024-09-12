@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SC_1_L3
   m_EditorClassIdentifier: 
   mainActorPosition: 0
+  naration: 0
   line: I should probably wear my cap. I hate getting snowflakes in my eyes.
   actorList:
   - character: {fileID: 11400000, guid: 199c4af3e5b50f148a1be804de8e237b, type: 2}
@@ -23,4 +24,8 @@ MonoBehaviour:
       walkOutRight: 0
       moveToo: {x: 0, y: 0, z: 0}
       moveBackward: 0
+    actorSoundEffect: 0
   hideAllActor: 0
+  playActorSoundEffect: 1
+  dialogueSoundEffect: {fileID: 0}
+  backgroundMusic: {fileID: 0}

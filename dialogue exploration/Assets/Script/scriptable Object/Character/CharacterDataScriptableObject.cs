@@ -8,4 +8,5 @@ public class CharacterDataScriptableObject : ScriptableObject
     public string characterName;
     public List<Sprite> characterSprite;
     public bool faceRightByDefault;
+    public List<AudioClip> audioClipList;
 }

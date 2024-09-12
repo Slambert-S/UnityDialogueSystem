@@ -25,4 +25,8 @@ MonoBehaviour:
       walkOutRight: 0
       moveToo: {x: 0, y: 0, z: 0}
       moveBackward: 0
+    actorSoundEffect: 3
   hideAllActor: 1
+  playActorSoundEffect: 1
+  dialogueSoundEffect: {fileID: 0}
+  backgroundMusic: {fileID: 0}
