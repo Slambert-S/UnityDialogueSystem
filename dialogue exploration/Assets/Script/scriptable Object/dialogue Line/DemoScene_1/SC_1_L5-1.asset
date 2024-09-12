@@ -27,6 +27,7 @@ MonoBehaviour:
       moveBackward: 0
     actorSoundEffect: 3
   hideAllActor: 1
+  newBackgroundImage: {fileID: 2800000, guid: 4f8164e4eafdc5f42bfb2dee0c522cf2, type: 3}
   playActorSoundEffect: 1
   dialogueSoundEffect: {fileID: 0}
   backgroundMusic: {fileID: 0}

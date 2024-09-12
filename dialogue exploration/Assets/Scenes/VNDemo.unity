@@ -3978,6 +3978,7 @@ MonoBehaviour:
   characterName: {fileID: 405564276}
   dialogueArea: {fileID: 1083184472}
   uiAnimator: {fileID: 189671527}
+  background: {fileID: 1936487847}
   isDialogueActive: 0
   typingSpeed: 0.02
   currentLine: {fileID: 0}

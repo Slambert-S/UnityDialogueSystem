@@ -14,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
     public Animator uiAnimator;
+    public RawImage background;
     [SerializeField]
     private Queue<dialogueObject> lines = new Queue<dialogueObject>();
     private Color passiveActorcolor = new Color(0.624f, 0.624f, 0.624f, 1f);
@@ -104,6 +105,9 @@ public class DialogueManager : MonoBehaviour
         //Clean up before loading the new line
         clearAllActor();
         this.GetComponent<MngPlaySound>().StopAllSoundEffect();
+
+
+        ChangeBackground();
 
         bool hideALLActor = currentLine.hideAllActor;
         
@@ -349,12 +353,28 @@ public class DialogueManager : MonoBehaviour
 
         }
     }
-     private void SaveActorPosition()
+    private void SaveActorPosition()
     {
         foreach (Image actor in actorIconPosition)
         {
             originalActorsPosition.Add(actor.transform.position);
         }
+    }
+
+    private void ChangeBackground()
+    {
+        if(currentLine.newBackgroundImage == null)
+        {
+            return;
+        }
+
+        if(background == null)
+        {
+            Debug.Log("No background ellement selected");
+        }
+
+        background.texture = currentLine.newBackgroundImage;
+
     }
     /*
     void HideAllActorSprite()

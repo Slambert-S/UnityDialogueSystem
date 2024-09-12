@@ -33,6 +33,7 @@ public class dialogueObject : ScriptableObject
     public List <ActorList> actorList = new List<ActorList>();
     [Header("General control")]
     public bool hideAllActor;
+    public Texture newBackgroundImage;
 
     public bool playActorSoundEffect = false;
     public AudioClip dialogueSoundEffect = null;
