@@ -102,6 +102,8 @@ public class DialogueManager : MonoBehaviour
         }
 
         currentLine = lines.Dequeue();
+        currentLine.line = gameObject.GetComponent<loadSpecificTranslatedDialogue>().getTranslatedLine(currentLine.name);
+        Debug.Log(gameObject.GetComponent<loadSpecificTranslatedDialogue>().getTranslatedLine(currentLine.name));
 
         //Clean up before loading the new line
         clearAllActor();

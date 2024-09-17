@@ -1,0 +1,69 @@
+{
+    "translationDico": [
+        {
+            "key": "SC_1_L1",
+            "englishText": "It's time for a new day of work.",
+            "frenchText": "Il est temp de commencer une nouvel journé de travail."
+        },
+        {
+            "key": "SC_1_L2",
+            "englishText": "It looks like it will be  aasda a snowy day. It's so <color=red>cold that I feel like</color> the only one outside right now. 4 3 2 1",
+            "frenchText": "On dirait que la journer s'annonce bien eneiger. Il fait <color=red>tellement froid que j'ai l'impression</color> d'être le seule personne en dehord présentement."
+        },
+        {
+            "key": "SC_1_L3",
+            "englishText": "I should probably wear my cap. I hate getting snowflakes in my eyes.",
+            "frenchText": "Je devrais probablement mettre ma casquette. Je déteste avoir des flocon de neige dans les yeux."
+        },
+        {
+            "key": "SC_1_L4",
+            "englishText": "Wait, what is that !?",
+            "frenchText": "Quoi, Quece que c'est !?"
+        },
+        {
+            "key": "SC_1_L5-1",
+            "englishText": "Jeff if looking at the building in front of him , trying to make out what he can see In the oposit building.",
+            "frenchText": "Jeff regarde le batiment en face de lui, il essaye d'identifier ce qu'il vois dans le batiment dans face."
+        },
+        {
+            "key": "SC_1_L5",
+            "englishText": "...",
+            "frenchText": "..."
+        },
+        {
+            "key": "SC_1_L6",
+            "englishText": "Floating TV coming through!!!",
+            "frenchText": " TV flotante en aproche !!!"
+        },
+        {
+            "key": "SC_1_L7",
+            "englishText": "",
+            "frenchText": ""
+        },
+        {
+            "key": "SC_1_L8",
+            "englishText": "[ BONK ]",
+            "frenchText": "[ BONK ]"
+        },
+        {
+            "key": "SC_1_L9",
+            "englishText": "What the..... oh hey Jack, what are you doing here?",
+            "frenchText": "Mais quesce que ....... oh salut Jack, que fais tu ici?"
+        },
+        {
+            "key": "SC_1_L10",
+            "englishText": "OMG It's Jeff",
+            "frenchText": "OMG C'est Jeff"
+        },
+        {
+            "key": "SC_1_L11",
+            "englishText": "Actually, I was looking for you. I have a message from your boss. He wants to tell you that you may have a nice surprise today if you can finish your task early enough to meet him in his office afterward.",
+            "frenchText": "EN fait, j'était justement a te recherche. J'ai un message pour toi de la part du patron. Il veut te dire qu'il te réserve une belle surprise ci tu arrive a finir tout tes livraisons a temps et que tu arrive a le rejoinde dans sons bureau apres."
+        },
+        {
+            "key": "SC_1_L12",
+            "englishText": "On that note... Have a good Day !!!",
+            "frenchText": "Sur ce ... Passe une bonne journé !!!"
+        }
+    ]
+}
