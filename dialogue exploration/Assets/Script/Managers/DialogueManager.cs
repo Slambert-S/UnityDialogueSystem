@@ -82,13 +82,14 @@ public class DialogueManager : MonoBehaviour
     public void DisplayNextDialogueLine()
     {
 
+        //Instantly finish typing the line.
         if(isTyping == true)
         {
             showFullDialogueText(currentLine);
             return;
         }
-        /// Make sure the actor reached their last position
-        /// 
+
+        // Make sure the actor reached their last position
         if(currentLine != null)
         {
             this.GetComponent<mngMovingActor>().PlaceActorToDesiredPosition(currentLine, actorIconPosition);
@@ -103,7 +104,7 @@ public class DialogueManager : MonoBehaviour
 
         currentLine = lines.Dequeue();
         currentLine.line = gameObject.GetComponent<loadSpecificTranslatedDialogue>().getTranslatedLine(currentLine.name);
-        Debug.Log(gameObject.GetComponent<loadSpecificTranslatedDialogue>().getTranslatedLine(currentLine.name));
+       // Debug.Log(gameObject.GetComponent<loadSpecificTranslatedDialogue>().getTranslatedLine(currentLine.name));
 
         //Clean up before loading the new line
         clearAllActor();
@@ -126,6 +127,7 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
+        // We dont need to check if actor are showing because we always hide/ reset all actor visibility and colore a  bit before.
         if(hideALLActor == false)
         {
             // Set up :  set sprite and position  For : all actor
@@ -295,7 +297,7 @@ public class DialogueManager : MonoBehaviour
 
         var mainActorIndex = currentLine.mainActorPosition;
 
-        // TO DO : BUG fix : currentl checking  if the mainActorIndex refer to an index and not the position of an actor.
+        // TO DO [I dont know if i fixed that]: BUG fix : currentl checking  if the mainActorIndex refer to an index and not the position of an actor.
 
         //Would need to loop trought all actor to find if one of them is designed as the main actor
         bool mainActorFound = false;

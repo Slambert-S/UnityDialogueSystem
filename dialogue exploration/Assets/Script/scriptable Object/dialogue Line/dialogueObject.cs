@@ -19,6 +19,7 @@ public class ActorList
     public int actorPosition;
     public ActorMouvement actorMouvement;
     public int actorSoundEffect = -1;
+    public bool fadIn = false;
 }
 [CreateAssetMenu(fileName = "Dialogue", menuName = "ScriptableObjects/DialogueScriptableObject", order = 1)]
 public class dialogueObject : ScriptableObject
