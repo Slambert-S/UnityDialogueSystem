@@ -20,7 +20,7 @@ public class moveActor : MonoBehaviour
     {
         if (isMoving)
         {
-            Debug.Log("Actor : " + this.transform.localPosition + " Target : " + targetPosition);
+            //Debug.Log("Actor : " + this.transform.localPosition + " Target : " + targetPosition);
             float distence = Vector3.Distance(this.transform.localPosition, targetPosition);
             if (distence >= 20)
             {

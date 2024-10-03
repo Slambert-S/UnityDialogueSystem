@@ -19,11 +19,16 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     private Queue<dialogueObject> lines = new Queue<dialogueObject>();
     private Color passiveActorcolor = new Color(0.624f, 0.624f, 0.624f, 1f);
-    private Color activeActorcolor = new Color(1f, 1f, 1f, 1f);
+    private Color activeActorcolor = new Color(1f, 1f, 1f, 0f);
+
+    private List<Image> fadingOutList = new List<Image>();
+    private List<Image> fadingInList = new List<Image>();
+
     public bool isDialogueActive = false;
     public float typingSpeed = 0.2f;
     private bool isTyping = false;
-    
+    private IEnumerator typingCoroutine;
+
     [SerializeField]
     private dialogueObject currentLine;
 
@@ -58,6 +63,8 @@ public class DialogueManager : MonoBehaviour
         isDialogueActive = true;
         // animator.Play("show");
         lines.Clear();
+
+        //The saved actor position and reset is used to move all character position  back to their original position. 
         if(originalActorsPosition.Count == 0)
         {
             SaveActorPosition();
@@ -86,15 +93,22 @@ public class DialogueManager : MonoBehaviour
         if(isTyping == true)
         {
             showFullDialogueText(currentLine);
+
+
+            HelperFinishAllAnimation();
+
             return;
         }
 
+        //Not sure if this will be useful in the furutre. [03/10/2024]
+        // This check is use to quickly finish the animation if they are still going when the text is done typing and the user try to load the next line [03/10/2024]
         // Make sure the actor reached their last position
-        if(currentLine != null)
+        if (currentLine != null)
         {
-            this.GetComponent<mngMovingActor>().PlaceActorToDesiredPosition(currentLine, actorIconPosition);
-           // Debug.LogWarning(" Actor have reset position")
+            HelperFinishAllAnimation();
         }
+
+        
 
         if (lines.Count == 0)
         {
@@ -104,9 +118,10 @@ public class DialogueManager : MonoBehaviour
 
         currentLine = lines.Dequeue();
         currentLine.line = gameObject.GetComponent<loadSpecificTranslatedDialogue>().getTranslatedLine(currentLine.name);
-       // Debug.Log(gameObject.GetComponent<loadSpecificTranslatedDialogue>().getTranslatedLine(currentLine.name));
+       
 
         //Clean up before loading the new line
+        StopAllCoroutines();
         clearAllActor();
         this.GetComponent<MngPlaySound>().StopAllSoundEffect();
 
@@ -138,71 +153,29 @@ public class DialogueManager : MonoBehaviour
         //Set up : Name , Color , height position For : Main actor
         SetUpMainActor(hideALLActor);
 
-        //Move all sprite ir required.
+        //Move all sprite if required.
         this.GetComponent<mngMovingActor>().HandleActorMouvement(currentLine, actorIconPosition);
-        
-        StopAllCoroutines();
+
 
         // Start Coroutine to start typing the text.
-        StartCoroutine(TypeSentence(currentLine));
+        typingCoroutine = TypeSentence(currentLine);
+        StartCoroutine(typingCoroutine);
 
         //Play all sound section
         this.GetComponent<MngPlaySound>().HandlePlaySounds(currentLine);
 
     }
 
-    IEnumerator TypeSentence(dialogueObject dialogueLine)
+    private void HelperFinishAllAnimation()
     {
-        isTyping = true;
-        dialogueArea.text = "";
-        //Debug.Log(StringExt.RichTextSubString(dialogueLine.line, 5));
-        
-
-        for(int i = 0; i <= StringExt.RichTextLength(dialogueLine.line); i++)
-        {
-            dialogueArea.text = StringExt.RichTextSubString(dialogueLine.line, i);
-            //dialogueArea.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
-            //i++;
-            
-        }
-
-        isTyping = false;
-        /*
-        foreach (char letter in dialogueLine.line.ToCharArray())
-        {
-            
-             * open = 0
-             * close  = 0
-             * active tag = 0
-             *  leftstring;
-             * middle string;
-             * right string
-             * openTag string
-             * 
-             * if char = \ skip to next char
-             * if char = <
-             *  then open ++
-             *  active tag ++
-             *  
-             *  if( open != 0)
-             *  add char to open
-             * 
-             * 
-            dialogueArea.text = StringExt.RichTextSubString(dialogueLine.line, i);
-            //dialogueArea.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
-            i++;
-
-            
-
-        }
-        */
+        this.GetComponent<mngMovingActor>().PlaceActorToDesiredPosition(currentLine, actorIconPosition);
+        FinishAllChildFadeOUt();
+        FinishAllFadOperation();
     }
 
     private void showFullDialogueText(dialogueObject dialogueLine)
     {
-        StopAllCoroutines();
+        StopCoroutine(typingCoroutine);
         dialogueArea.text = dialogueLine.line;
         isTyping = false;
     }
@@ -220,26 +193,59 @@ public class DialogueManager : MonoBehaviour
     }
 
 
-    IEnumerator HideAllActorSprite()
-    {
-        //wait for the UI to be out of sight before hiding all actor just in case
-        yield return new WaitForSeconds(0.5f);
-        clearAllActor();
-        ResetActorPosition();
-        isDialogueActive = false;
-
-
-    }
+    
     private void clearAllActor()
     {
         foreach (Image actor in actorIconPosition)
         {
-            actor.sprite = null;
+            //actor.sprite = null;
             
             actor.color = new Color(0, 0, 0, 0);
-
+/*
+            foreach(Transform child in actor.gameObject.transform)
+            {
+                
+                Destroy(child.gameObject);
+            }
+*/
         }
  
+    }
+
+    private void FinishAllFadOperation()
+    {
+        foreach(Image objectToFadeOut in fadingOutList)
+        {
+            SetImageAlpha(objectToFadeOut, 0f);
+        }
+         fadingOutList.Clear();
+
+        foreach (Image objectToFadeIn in fadingInList)
+        {
+            SetImageAlpha(objectToFadeIn, 1f);
+        }
+        fadingInList.Clear();
+
+    }
+
+    private void SetImageAlpha(Image targetedImage, float alphaValue)
+    {
+      
+        Color tagetcolor = targetedImage.color;
+        tagetcolor.a = alphaValue;
+        targetedImage.color = tagetcolor;
+    }
+    private void FinishAllChildFadeOUt()
+    {
+        foreach (Image actor in actorIconPosition)
+        {
+            foreach (Transform child in actor.gameObject.transform)
+            {
+
+                Destroy(child.gameObject);
+            }
+
+        }
     }
 
     private void SetUpAllActorSprite()
@@ -266,8 +272,20 @@ public class DialogueManager : MonoBehaviour
             //Place the proper sprite
             if (actor.selectedSprite < actor.character.characterSprite.Count && actor.selectedSprite >= 0)
             {
+                
+                //Test duplicating a sprite
+                GameObject copy = Instantiate(actorIconPosition[actor.actorPosition].gameObject, actorIconPosition[actor.actorPosition].transform.position , Quaternion.identity);
+           
+                copy.transform.SetParent(actorIconPosition[actor.actorPosition].transform);
+                copy.transform.localScale = new Vector3(1, 1, 1);
+                copy.gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1);
 
+                //Debug.Log(actorIconPosition[actor.actorPosition].sprite);
+
+                StartCoroutine(FadeOut(copy.GetComponent<Image>(), actor, true));
+                
                 actorIconPosition[actor.actorPosition].sprite = actor.character.characterSprite[actor.selectedSprite];
+                
             }
             else
             {
@@ -280,14 +298,51 @@ public class DialogueManager : MonoBehaviour
             if(highlightMainActor == false)
             {
                 actorIconPosition[actor.actorPosition].color = activeActorcolor;
+                
             }
             else
             {
                 actorIconPosition[actor.actorPosition].color = passiveActorcolor;
             }
 
+            if (actor.fadeIn == true)
+            {
+                StartCoroutine(FadeIn(actorIconPosition[actor.actorPosition], actor));
+            }
+            else
+            {
+                //Ass actor sprite have their Alpha set to zero to never show unwanted sprite.
+                //This line is required to show all active actor
+                SetImageAlpha(actorIconPosition[actor.actorPosition], 1f);
+              
+            }
+
+            if (actor.fadeOut == true)
+            {
+                StartCoroutine(FadeOut(actorIconPosition[actor.actorPosition], actor, false));
+                foreach(Transform  child in actorIconPosition[actor.actorPosition].transform)
+                {
+                    if(child.gameObject.GetComponent<Image>() != null)
+                    {
+                        SetImageAlpha(child.gameObject.GetComponent<Image>() , 0);
+                    }
+                }
+            }
+
+
+
         }
     }
+
+  
+    private void SwapColorKeepAlpha(Image actorToChangeColor , Color colorToChangeTo)
+    {
+        Image yourSpriteRenderer = actorToChangeColor.GetComponent<Image>();
+        float alpha = yourSpriteRenderer.color.a;
+        colorToChangeTo.a = alpha;
+        yourSpriteRenderer.color= colorToChangeTo;
+    }
+
 
     private void SetUpMainActor(bool hideActor)
     {
@@ -332,7 +387,8 @@ public class DialogueManager : MonoBehaviour
             
             if(hideActor == false)
             {
-                actorIconPosition[mainActorIndex].color = activeActorcolor;
+               // actorIconPosition[mainActorIndex].color = activeActorcolor;
+                SwapColorKeepAlpha(actorIconPosition[mainActorIndex], activeActorcolor);
             }
             actorIconPosition[mainActorIndex].transform.SetAsLastSibling();
             foreach (ActorList actor in currentLine.actorList)
@@ -381,14 +437,99 @@ public class DialogueManager : MonoBehaviour
         background.texture = currentLine.newBackgroundImage;
 
     }
-    /*
-    void HideAllActorSprite()
+
+   public IEnumerator TypeSentence(dialogueObject dialogueLine)
     {
-        foreach(Image actor in actorIconPosition)
+        isTyping = true;
+        dialogueArea.text = "";
+        //Debug.Log(StringExt.RichTextSubString(dialogueLine.line, 5));
+
+
+        for (int i = 0; i <= StringExt.RichTextLength(dialogueLine.line); i++)
         {
-            actor.color = new Color(0, 0, 0, 0);
+            dialogueArea.text = StringExt.RichTextSubString(dialogueLine.line, i);
+            //dialogueArea.text += letter;
+            yield return new WaitForSeconds(typingSpeed);
+            //i++;
+
         }
-    }*/
+
+        isTyping = false;
+
+    }
+
+    //This debug section work on controlling the alpha of an actor
+    //Testing to control alpha level
+    IEnumerator FadeIn(Image actorVisalFade, ActorList actor)
+    {
+
+        //Debug.Log("In fade in");
+        Image yourSpriteRenderer = actorVisalFade.GetComponent<Image>();
+        float alphaVal = yourSpriteRenderer.color.a;
+        Color tmp = yourSpriteRenderer.color;
+        
+        //Add the Image to the list to keep track of it if we need to finishe the fade early
+        fadingInList.Add(yourSpriteRenderer);
+
+        while (yourSpriteRenderer != null && yourSpriteRenderer.color.a < 1f)
+        { 
+            alphaVal += 0.1f;
+            tmp.a = alphaVal;
+            yourSpriteRenderer.color = tmp;
+
+            yield return new WaitForSeconds(0.05f); // update interval
+        }
+
+        fadingInList.Remove(yourSpriteRenderer);
+        fadingInList.RemoveAll(item => item == null);
+    }
+    IEnumerator FadeOut(Image actorVisalFade, ActorList actor, bool destroyAtTheEnd)
+    {
+        //Debug.Log("In fade out");
+        Image yourSpriteRenderer = actorVisalFade.GetComponent<Image>();
+        Color TempToMaxAlpha = actorVisalFade.GetComponent<Image>().color;
+        TempToMaxAlpha.a = 1f;
+        yourSpriteRenderer.color = TempToMaxAlpha;
+
+        fadingOutList.Add(yourSpriteRenderer);
+
+        float alphaVal = yourSpriteRenderer.color.a;
+        Color tmp = yourSpriteRenderer.color;
+
+        while (yourSpriteRenderer != null && yourSpriteRenderer.color.a > 0f)
+        {
+            
+         
+            alphaVal -= 0.1f;
+            tmp.a = alphaVal;
+            yourSpriteRenderer.color = tmp;
+         
+            yield return new WaitForSeconds(0.05f); // update interval
+        }
+
+        fadingOutList.Remove(yourSpriteRenderer);
+        fadingOutList.RemoveAll(item => item == null);
+
+        if (destroyAtTheEnd == true)
+        {
+            if(actorVisalFade != null)
+            {
+                Destroy(actorVisalFade.gameObject);
+            }
+        }
+    }
+
+    IEnumerator HideAllActorSprite()
+    {
+        //wait for the UI to be out of sight before hiding all actor just in case
+        yield return new WaitForSeconds(0.5f);
+        clearAllActor();
+        ResetActorPosition();
+        isDialogueActive = false;
+
+
+    }
+
 }
 
 

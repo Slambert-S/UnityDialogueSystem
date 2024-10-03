@@ -8,6 +8,7 @@ public class ActorMouvement
     
     public bool walkOutLeft;
     public bool walkOutRight;
+    public bool walkBackIn;
     public Vector3 moveToo;
     public bool moveBackward;
 }
@@ -19,7 +20,8 @@ public class ActorList
     public int actorPosition;
     public ActorMouvement actorMouvement;
     public int actorSoundEffect = -1;
-    public bool fadIn = false;
+    public bool fadeIn = false;
+    public bool fadeOut = false;
 }
 [CreateAssetMenu(fileName = "Dialogue", menuName = "ScriptableObjects/DialogueScriptableObject", order = 1)]
 public class dialogueObject : ScriptableObject

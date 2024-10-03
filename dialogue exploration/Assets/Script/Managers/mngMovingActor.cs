@@ -52,6 +52,10 @@ public class mngMovingActor : MonoBehaviour
                 WalkOutRight(actorObjectRef.transform);
                 needToMove = true;
 
+            }else if(actor.actorMouvement.walkBackIn)
+            {
+                WalkBackInWithOfset(actorObjectRef.transform, actor.actorMouvement.moveToo);
+                needToMove = true;
             }
             else if(actor.actorMouvement.moveToo != new Vector3(0, 0, 0))
             {
@@ -137,5 +141,23 @@ public class mngMovingActor : MonoBehaviour
         _direction = _targetPosition - actorPosition.localPosition;
         _direction = _direction.normalized;
 
+    }
+
+    private void WalkBackInWithOfset(Transform actorPosition, Vector3 positionOfset)
+    {
+        _targetPosition = actorPosition.localPosition + positionOfset;
+        float distanceLeft = Vector3.Distance(actorPosition.localPosition, leftOffScreenPosition.transform.localPosition);
+        float distanceRight = Vector3.Distance(actorPosition.localPosition, rightOffscreenPosition.transform.localPosition);
+
+        if (distanceLeft < distanceRight) {
+            actorPosition.localPosition = leftOffScreenPosition.transform.localPosition;
+        }
+        else
+        {
+            actorPosition.localPosition = rightOffscreenPosition.transform.localPosition;
+        }
+
+        _direction = _targetPosition - actorPosition.localPosition;
+        _direction = _direction.normalized;
     }
 }

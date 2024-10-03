@@ -22,18 +22,24 @@ MonoBehaviour:
     actorMouvement:
       walkOutLeft: 0
       walkOutRight: 0
+      walkBackIn: 0
       moveToo: {x: 0, y: 0, z: 0}
       moveBackward: 0
     actorSoundEffect: -1
+    fadeIn: 0
+    fadeOut: 0
   - character: {fileID: 11400000, guid: a5cc9003ff8614a43a757ee14340e4ae, type: 2}
     selectedSprite: 0
     actorPosition: 2
     actorMouvement:
       walkOutLeft: 0
       walkOutRight: 0
+      walkBackIn: 0
       moveToo: {x: 0, y: 0, z: 0}
       moveBackward: 0
     actorSoundEffect: -1
+    fadeIn: 0
+    fadeOut: 0
   hideAllActor: 0
   newBackgroundImage: {fileID: 2800000, guid: a96d41aba3dc5104382c12a6bf46860d, type: 3}
   playActorSoundEffect: 0

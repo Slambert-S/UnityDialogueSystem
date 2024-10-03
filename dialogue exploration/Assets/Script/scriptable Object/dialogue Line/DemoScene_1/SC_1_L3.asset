@@ -22,10 +22,26 @@ MonoBehaviour:
     actorMouvement:
       walkOutLeft: 0
       walkOutRight: 0
+      walkBackIn: 0
       moveToo: {x: 0, y: 0, z: 0}
       moveBackward: 0
     actorSoundEffect: 0
+    fadeIn: 0
+    fadeOut: 1
+  - character: {fileID: 11400000, guid: 0ec6c12a961464144a504e3f245fa1ee, type: 2}
+    selectedSprite: 2
+    actorPosition: 1
+    actorMouvement:
+      walkOutLeft: 0
+      walkOutRight: 0
+      walkBackIn: 0
+      moveToo: {x: 0, y: 0, z: 0}
+      moveBackward: 0
+    actorSoundEffect: 0
+    fadeIn: 0
+    fadeOut: 0
   hideAllActor: 0
+  newBackgroundImage: {fileID: 0}
   playActorSoundEffect: 1
   dialogueSoundEffect: {fileID: 0}
   backgroundMusic: {fileID: 0}

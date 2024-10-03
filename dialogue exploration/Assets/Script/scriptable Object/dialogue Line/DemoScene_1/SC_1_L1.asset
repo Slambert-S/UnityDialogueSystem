@@ -17,15 +17,18 @@ MonoBehaviour:
   line: It's time for a new day of work.
   actorList:
   - character: {fileID: 11400000, guid: 199c4af3e5b50f148a1be804de8e237b, type: 2}
-    selectedSprite: 3
+    selectedSprite: 7
     actorPosition: 0
     actorMouvement:
       walkOutLeft: 0
       walkOutRight: 0
+      walkBackIn: 1
       moveToo: {x: 0, y: 0, z: 0}
       moveBackward: 0
     actorSoundEffect: -1
+    fadIn: 0
   hideAllActor: 0
+  newBackgroundImage: {fileID: 0}
   playActorSoundEffect: 0
   dialogueSoundEffect: {fileID: 0}
   backgroundMusic: {fileID: 8300000, guid: a245c59dbcd3b30409b1a184ffe14bcc, type: 3}

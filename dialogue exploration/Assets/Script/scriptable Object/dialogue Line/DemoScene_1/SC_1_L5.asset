@@ -22,10 +22,13 @@ MonoBehaviour:
     actorMouvement:
       walkOutLeft: 0
       walkOutRight: 0
+      walkBackIn: 0
       moveToo: {x: 800, y: 0, z: 0}
       moveBackward: 0
     actorSoundEffect: 2
+    fadIn: 0
   hideAllActor: 0
+  newBackgroundImage: {fileID: 0}
   playActorSoundEffect: 1
   dialogueSoundEffect: {fileID: 0}
   backgroundMusic: {fileID: 8300000, guid: e9ea8566ec229dc4db7ab60a8a07fdd7, type: 3}
